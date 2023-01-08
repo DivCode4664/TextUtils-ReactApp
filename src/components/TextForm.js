@@ -18,9 +18,7 @@ export default function TextForm(props) {
     }
 
     const copytext = () =>{
-        var txt = document.getElementById('mybox');
-        txt.select();
-        navigator.clipboard.writeText(txt.value);
+        navigator.clipboard.writeText(text);
     }
 
     const handleextraspace = () =>{
@@ -40,16 +38,16 @@ export default function TextForm(props) {
             <div className="mb-3">
                 <textarea className="form-control" value={text} onChange={handleonchange} style={{backgroundColor: props.mode === 'light' ? 'white' : 'grey'}} id="mybox" rows="8"></textarea>
             </div>
-            <button className="btn btn-primary mx-1" onClick={changeupper}>UpperCase</button>
-            <button className="btn btn-primary mx-1" onClick={changelower}>LowerCase</button>
-            <button className="btn btn-primary mx-1" onClick={copytext}>Copy Text</button>
-            <button className="btn btn-primary mx-1" onClick={handleextraspace}>Remove Extra Space</button>
-            <button className="btn btn-primary mx-1" onClick={changeblank}>Clear</button>
+            <button className="btn btn-primary mx-1 my-1" disabled={text.length===0} onClick={changeupper}>UpperCase</button>
+            <button className="btn btn-primary mx-1 my-1" disabled={text.length===0} onClick={changelower}>LowerCase</button>
+            <button className="btn btn-primary mx-1 my-1" disabled={text.length===0} onClick={copytext}>Copy Text</button>
+            <button className="btn btn-primary mx-1 my-1" disabled={text.length===0} onClick={handleextraspace}>Remove Extra Space</button>
+            <button className="btn btn-primary mx-1 my-1" disabled={text.length===0} onClick={changeblank}>Clear</button>
         </div>
         <div className="container my-3" style={{color: props.mode === 'light' ? 'black' : 'white'}}>
             <h3>Text Summary</h3>
-            <p>{text.trim().split(/\s+/).length} words and {text.replace(/\s+/g, '').length} letters and {text.split(".").length} sentences.</p>
-            <p>{0.008 * text.split(" ").length} Minutes to read</p>
+            <p>{text.split(" ").filter((elemnet) => {return elemnet.length !== 0}).length} words and {text.replace(/\s+/g, '').length} letters and {text.split(".").filter((elemnet) => {return elemnet.length !== 0}).length} sentences.</p>
+            <p>{0.008 * text.split(" ").filter((elemnet) => {return elemnet.length !== 0})} Minutes to read</p>
             <h3>Preview</h3>
             <p>{text}</p>
         </div>

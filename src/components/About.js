@@ -1,36 +1,20 @@
 import React , {useState} from 'react'
 
-export default function About() {
+export default function About(props) {
 
-    const [mystyle,setmystyle] = useState(
-    {
-        color: 'black',
-        backgroundColor: 'white'
-    })
+    // const [mystyle,setmystyle] = useState(
+    // {
+    //     color: 'black',
+    //     backgroundColor: 'white'
+    // })
 
-    const [btntext,setbtntext] = useState("Dark Mode");
-
-    const changetheme = ()=> {
-
-        if(mystyle.color === 'black')
-        {
-            setmystyle({
-                color: 'white',
-                backgroundColor: 'black'
-            })
-            setbtntext("Light Mode");
-        }
-        else
-        {
-            setmystyle({
-                color: 'black',
-                backgroundColor: 'white'
-            })
-            setbtntext("Dark Mode");
-        }
+    let mystyle = {
+        color : props.mode === 'dark' ? 'white' : '#191d28c2', 
+        backgroundColor: props.mode === 'dark' ? '#191d28c2' : 'white',
+        borderRadius: '3px'
     }
     return (
-        <div className='container my-3' style={mystyle}>
+        <div className='container my-3' style={{color:props.mode === 'dark' ? 'white' : '#191d28c2'}}>
             <h1 className='my-2'>About Us</h1>
             <div className="accordion" id="accordionExample" style={mystyle}>
                 <div className="accordion-item">
@@ -69,9 +53,6 @@ export default function About() {
                         </div>
                     </div>
                 </div>
-            </div>
-            <div className="container my-3">
-                <button type="button" onClick={changetheme} className="btn btn-primary">{btntext}</button>
             </div>
         </div>
     )
